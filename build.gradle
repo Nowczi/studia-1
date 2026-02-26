@@ -2,7 +2,8 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version "${springBootVersion}"
     id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
-    }
+    id 'jacoco'
+}
 
 group = 'pl.nowakowski'
 version = '1.0'
@@ -67,6 +68,39 @@ test {
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
+    }
+    finalizedBy jacocoTestReport
+}
+
+jacoco {
+    toolVersion = "0.8.11"
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        html.required = true
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    '**/pl/nowakowski/infrastructure/database/entity/**',
+                    '**/pl/nowakowski/infrastructure/security/**',
+                    '**/pl/nowakowski/api/dto/**',
+                    '**/pl/nowakowski/CarDealershipApplication.class'
+            ])
+        }))
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.80
+            }
+        }
     }
 }
 

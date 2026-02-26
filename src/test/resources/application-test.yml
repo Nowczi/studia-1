@@ -1,4 +1,17 @@
 spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: false
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    pl.nowakowski: DEBUG
