@@ -1,5 +1,5 @@
 server:
-  port: 8190
+  port: 8080
   servlet:
     context-path: /car-dealership
 
@@ -7,7 +7,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/car_dealership
+    url: jdbc:postgresql://car-dealership2.cju4egieil1t.eu-north-1.rds.amazonaws.com/car_dealership
     username: postgres
     password: postgres
     hikari:
